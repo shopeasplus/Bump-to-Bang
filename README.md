@@ -44,11 +44,35 @@
         </div>
     </div>
 
-    <script>
-        // Simple Logic to alert when file is selected
-        document.getElementById('audio-input').onchange = function() {
-            alert("File received. Now connecting to the Trunkbang Master Engine... (Step C)");
-        };
-    </script>
-</body>
-</html>
+    // 1. Initialize the Cloudinary Widget
+const myWidget = cloudinary.createUploadWidget({
+  cloudName: 'YOUR_CLOUD_NAME_HERE', 
+  uploadPreset: 'YOUR_PRESET_NAME',
+  folder: 'trap_master_uploads',
+  // This is the "Secret Sauce" - The Transformation String
+  // 'e_volume:10' cranks the gain, 'e_equalizer' boosts the low end (Bass)
+  transformation: [
+    {effect: "volume:10"},
+    {effect: "equalizer:0:0:0:50:50:50:0:0:0:0"} 
+  ]
+}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+      console.log('Done! Here is the mastered track: ', result.info.secure_url);
+      
+      // Update the UI to show the "Download Mastered" button
+      document.getElementById('drop-zone').innerHTML = `
+        <h2 class="text-3xl text-yellow-400 mb-6 italic">TRACK MASTERED 💎</h2>
+        <a href="${result.info.secure_url}" target="_blank" 
+           class="bg-white text-black px-8 py-4 rounded-full font-black uppercase hover:bg-yellow-400 transition-all">
+           Download the Heat
+        </a>
+        <p class="mt-4 text-xs text-zinc-500">TRUNKBANG LLC SECURED</p>
+      `;
+    }
+});
+
+// 2. Link it to your big red button
+document.getElementById('audio-input-btn').addEventListener("click", function(){
+    myWidget.open();
+}, false);
+
