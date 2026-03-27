@@ -1,10 +1,21 @@
+<!-- TRAP MASTER HTML Page -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
     <title>TRAP MASTER</title>
 </head>
-<body>
-    <h1>Welcome to TRAP MASTER</h1>
-    <p>This is the content of the TRAP MASTER page.</p>
+<body class="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <h1 class="text-4xl font-bold text-metallic">Welcome to TRAP MASTER</h1>
+    <input type="file" id="audioUpload" class="mt-5" />
+    <button onclick="uploadAudio()" class="mt-3 bg-blue-500 text-white p-2 rounded">Upload Audio</button>
+    <script>
+        function uploadAudio() {
+            // Functionality to upload audio file
+            alert('Upload functionality not implemented yet.');
+        }
+    </script>
 </body>
 </html>
